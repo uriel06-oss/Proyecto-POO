@@ -12,4 +12,12 @@ public class Vendedor extends Empleado {
         this.diaDescanso = diaDescanso;
     }
 
+    public String getDiaDescanso() {
+    return diaDescanso;
+    }
+
+    public void setDiaDescanso(String diaDescanso) {
+        this.diaDescanso = diaDescanso;
+    }
+
 }
