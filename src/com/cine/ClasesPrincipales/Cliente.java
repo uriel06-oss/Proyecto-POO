@@ -12,12 +12,31 @@ public class Cliente extends Persona {
         this.tarjeta = tarjeta;
     }
 
+    public Cliente(){
+        super(null,null,null,null,null,null,null,null);
+        this.tarjeta = null;
+    }
+
     public String getTarjeta() {
         return tarjeta;
     }
 
     public void setTarjeta(String tarjeta) {
         this.tarjeta = tarjeta;
+    }
+
+    @Override
+    public String toString() {
+    return "Cliente:\n" +
+           "Nombre: " + getNombre() + "\n" +
+           "Apellido Paterno: " + getApellidoPaterno() + "\n" +
+           "Apellido Materno: " + getApellidoMaterno() + "\n" +
+           "Nickname: " + getNickname() + "\n" +
+           "Contraseña: " + getContraseña() + "\n" +
+           "Correo: " + getCorreo() + "\n" +
+           "Celular: " + getCelular() + "\n" +
+           "Edad: " + getEdad() + "\n" +
+           "Tarjeta: " + tarjeta + "\n";
     }
 
 }
