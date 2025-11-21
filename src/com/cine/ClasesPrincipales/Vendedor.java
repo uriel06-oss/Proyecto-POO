@@ -20,4 +20,17 @@ public class Vendedor extends Empleado {
         this.diaDescanso = diaDescanso;
     }
 
+    @Override
+    public String toString() {
+    return "Cliente:\n" +
+           "Nombre: " + getNombre() + "\n" +
+           "Apellido Paterno: " + getApellidoPaterno() + "\n" +
+           "Apellido Materno: " + getApellidoMaterno() + "\n" +
+           "Nickname: " + getNickname() + "\n" +
+           "Contraseña: " + getContraseña() + "\n" +
+           "Correo: " + getCorreo() + "\n" +
+           "Celular: " + getCelular() + "\n" +
+           "Edad: " + getEdad() + "\n" +
+           "Dia de descanso: " + diaDescanso + "\n";
+    }
 }
