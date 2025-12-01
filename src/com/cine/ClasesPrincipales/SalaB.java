@@ -50,4 +50,21 @@ public class SalaB extends Sala {
     public String getTipoDeSala() {
         return tipoDeSala;
     }
+
+    public int getNumeroFilas() {
+        return filas1;
+    }
+
+    public int getNumeroColumnas() {
+        return columnas1;
+    }
+
+    public int getNumeroFilasDos() {
+        return filas2;
+    }
+
+    public int getNumeroColumnasDos() {
+        return columnas2;
+    }
+
 }

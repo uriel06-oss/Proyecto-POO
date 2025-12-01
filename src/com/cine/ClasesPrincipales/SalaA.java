@@ -38,4 +38,13 @@ public class SalaA extends Sala {
     public String getTipoDeSala() {
         return tipoDeSala;
     }
+
+    public int getNumeroFilas() {
+        return filas;
+    }
+
+    public int getNumeroColumnas() {
+        return columnas;
+    }
+
 }
