@@ -154,12 +154,192 @@ public class ControlBoletosCartelera {
     }
 
     /**
+     * Metodo para mostrar los asientos
+     * Punto 7.2
+     * 
+     * @param Funcion recibe una funcion y muestra los asientos de la sala A
+     */
+
+    public void mostrarAsientosSalaA(Funcion funcion) {
+
+        List<String> todos = funcion.getSala().getAsientos();
+        List<Boleto> vendidos = funcion.getBoletosVendidos();
+
+        int columnas = funcion.getSala().getNumeroColumnas();
+        int filas = funcion.getSala().getNumeroFilas();
+
+        System.out.println("\n");
+        System.out.println("O = disponible   |   X = ocupado\n");
+
+        int index = 0;
+
+        for (int f = 0; f < filas; f++) {
+            char letra = (char) ('A' + f);
+            System.out.print(letra + "  ");
+
+            for (int c = 1; c <= columnas; c++) {
+                String asiento = todos.get(index);
+
+                boolean ocupado = false;
+
+                for (Boleto b : vendidos) {
+                    if (b.getAsiento().equals(asiento)) {
+                        ocupado = true;
+                        break;
+                    }
+                }
+
+                System.out.print(ocupado ? "X " : "O ");
+                index++;
+
+            }
+
+            System.out.println(); // salto de línea
+        }
+    }
+
+    /**
+     * Metodo para mostrar los asientos
+     * Punto 7.2
+     * 
+     * @param Funcion recibe una funcion y muestra los asientos de la sala B
+     */
+
+    public void mostrarAsientosSalaB(Funcion funcion) {
+
+        List<String> todos = funcion.getSala().getAsientos();
+        List<Boleto> vendidos = funcion.getBoletosVendidos();
+
+        int filas1 = funcion.getSala().getNumeroFilas();
+        int columnas1 = funcion.getSala().getNumeroColumnas();
+
+        int filas2 = funcion.getSala().getNumeroFilasDos();
+        int columnas2 = funcion.getSala().getNumeroColumnasDos();
+
+        System.out.println("\nO = Disponible   |   X = ocupado\n");
+
+        int index = 0;
+
+        System.out.println("--------");
+        System.out.printf("%4s", "");
+        for (int c = 1; c <= columnas1; c++) {
+            System.out.printf("%3d", c);
+        }
+        System.out.println();
+        for (int f = 0; f < filas1; f++) {
+
+            char letra = (char) ('A' + f);
+            System.out.printf("%-4s", letra);
+
+            for (int c = 1; c <= columnas1; c++) {
+
+                String asiento = todos.get(index);
+
+                boolean ocupado = false;
+                for (Boleto b : vendidos) {
+                    if (b.getAsiento().equals(asiento)) {
+                        ocupado = true;
+                        break;
+                    }
+                }
+
+                System.out.printf("%3s", ocupado ? "X" : "O");
+                index++;
+            }
+            System.out.println();
+        }
+
+        System.out.println("\n");
+
+        System.out.printf("%4s", "");
+        for (int c = 1; c <= columnas2; c++) {
+            System.out.printf("%3d", c);
+        }
+        System.out.println();
+
+        for (int f = 0; f < filas2; f++) {
+
+            char letra = (char) ('A' + filas1 + f); // Sigue después de la zona 1
+            System.out.printf("%-4s", letra);
+
+            for (int c = 1; c <= columnas2; c++) {
+
+                String asiento = todos.get(index);
+
+                boolean ocupado = false;
+                for (Boleto b : vendidos) {
+                    if (b.getAsiento().equals(asiento)) {
+                        ocupado = true;
+                        break;
+                    }
+                }
+
+                System.out.printf("%3s", ocupado ? "X" : "O");
+                index++;
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Metodo para mostrar los asientos
+     * Punto 7.2
+     * 
+     * @param Funcion recibe una funcion y muestra los asientos de la sala Vip
+     */
+
+    public void mostrarAsientosSalaVip(Funcion funcion) {
+
+        List<String> todos = funcion.getSala().getAsientos();
+        List<Boleto> vendidos = funcion.getBoletosVendidos();
+
+        int columnas = funcion.getSala().getNumeroColumnas();
+        int filas = funcion.getSala().getNumeroFilas();
+
+        System.out.println("\n");
+        System.out.println("O = disponible   |   X = ocupado\n");
+
+        int index = 0;
+
+        for (int f = 0; f < filas; f++) {
+            char letra = (char) ('A' + f);
+            System.out.print(letra + "  ");
+
+            for (int c = 1; c <= columnas; c++) {
+                String asiento = todos.get(index);
+
+                boolean ocupado = false;
+
+                for (Boleto b : vendidos) {
+                    if (b.getAsiento().equals(asiento)) {
+                        ocupado = true;
+                        break;
+                    }
+                }
+
+                System.out.print(ocupado ? "X " : "O ");
+                index++;
+                // Para separar las columnas
+                if (c % 2 == 0) {
+                    System.out.print(" "); // espacio de separación
+                }
+
+            }
+
+            System.out.println(); // salto de línea
+        }
+    }
+
+    /**
      * Metodo para vender boletos
-     * Primero revisa que no este vendido
+     * Primero revisa que no este vendido, despues procede a hacer el pago bancario
+     * y hacer el resumen
+     * Solo se tiene que ejecutar este metodo y los demas los ejecuta este
      * Punto 7.2
      * 
      * @param Funcion recibe una funcion a la que se quiere comprar boletos
      * @param String  recibe una cadena de asientos que se quieren comprar
+     * @return True si se pudieron comprar los boletos
      */
 
     public boolean comprarBoletos(Funcion funcion, String asientoSeleccionados) {
@@ -179,8 +359,69 @@ public class ControlBoletosCartelera {
             funcion.venderBoleto(asiento);
         }
 
+        // si los boletos estaban disponibles, se ponen en la lista de boletos vendidos
+        // y
+        // se llama al metodo de cargo bancario de una vez
+        cargoBancario();
+
+        // muestra el resumen de compra al final
+        resumenDeCompra(funcion, asientos);
+
         return true;
     }
+
+    /**
+     * Metodo para simular el cargo bancario
+     * Punto 7.2
+     */
+
+    public void cargoBancario() {
+        // crea los hilos y carga necesita a hilo para arrancar
+        HiloBanco hilo = new HiloBanco();
+        BarraCarga carga = new BarraCarga(hilo);
+        hilo.start();
+        carga.start();
+
+        try {
+            hilo.join();
+            carga.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // cuando ya termino de hcaer el cargo bancario muestra el resumen de compra
+
+    }
+
+    /**
+     * Metodo para mostrar un resumen de compra
+     * Punto 7.2
+     */
+
+    public void resumenDeCompra(Funcion funcion, String[] asientosComprados) {
+        System.out.println("\n======= RESUMEN DE COMPRA =======\n");
+        System.out.println("Película: " + funcion.getPelicula().getNombreDeLaPelicula());
+        System.out.println("Fecha:    " + funcion.getFecha());
+        System.out.println("Horario:  " + funcion.getHorario());
+        System.out.println("Sala:     " + funcion.getSala().getTipoDeSala());
+        System.out.println("\nAsientos comprados:");
+
+        List<Boleto> vendidos = funcion.getBoletosVendidos();
+
+        for (String buscado : asientosComprados) {
+            for (Boleto b : vendidos) {
+                if (b.getAsiento().equalsIgnoreCase(buscado)) {
+                    System.out.println("Clave: " + b.getClaveBoleto());
+                }
+            }
+        }
+
+        double total = asientosComprados.length * funcion.getPrecio();
+        System.out.println("\nTotal pagado: $" + total);
+
+        System.out.println("\n=================================\n");
+    }
+
     // Metodos get
 
     public List<Funcion> getFunciones() {

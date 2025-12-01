@@ -27,4 +27,20 @@ public abstract class Sala {
     public abstract double getPrecio();
 
     public abstract String getTipoDeSala();
+
+    public abstract int getNumeroColumnas();
+
+    public abstract int getNumeroFilas();
+
+    // modificar si no aparecen las filas y columnas de sala b
+
+    public int getNumeroColumnasDos() {
+        return 0;
+    }
+
+    public int getNumeroFilasDos() {
+        return 0;
+
+    }
+
 }
